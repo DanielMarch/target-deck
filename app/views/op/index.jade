@@ -1,0 +1,17 @@
+extends ../shared/template
+
+block content
+  h1= title
+
+  h1 New Operation
+  form(method='post', action='/operation', enctype='multipart/form-data')
+    label Operation Name:
+    input(type='text', name='name', autofocus=true, placeholder='Enter Operation Name', required='required')
+    label Expiry:
+    input(type='date', name='date')
+    label POC:
+    select(type='select', name='poc')
+      option Select POC
+        each user in users
+          option(value='#{user._id}')= user.name
+    button Create Operation

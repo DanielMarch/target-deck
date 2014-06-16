@@ -53,6 +53,12 @@ class User{
     });
   }
 
+  static findByOrgId(orgId, fn){
+    userCollection.find({org: orgId}).toArray((e, users)=>{
+      fn(users);
+    });
+  }
+
   save(fn) {
     userCollection.save(this, ()=>fn());
   }
@@ -63,6 +69,10 @@ class User{
     this.name = fields.name[0];
     this.dsn = fields.dsn[0];
     this.affiliation = fields.affiliation[0];
+  }
+
+  destroy(fn){
+    userCollection.remove({_id:this._id}, ()=>fn());
   }
 }
 

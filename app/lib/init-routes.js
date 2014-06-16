@@ -17,6 +17,7 @@ function load(app, fn){
   var home = traceur.require(__dirname + '/../routes/home.js');
   var orgs = traceur.require(__dirname + '/../routes/orgs.js');
   var users = traceur.require(__dirname + '/../routes/users.js');
+  var ops = traceur.require(__dirname + '/../routes/ops.js');
 
   app.get('/', dbg, home.index);
   app.get('/about', dbg, home.about);
@@ -33,6 +34,8 @@ function load(app, fn){
   app.get('/logout', dbg, orgs.logout);
   app.get('/portal', dbg, orgs.portal);
 
+  app.get('/manage', dbg, orgs.manage);
+
   app.post('/registeru', dbg, users.validate);
 
   app.get('/verifyu/:id', dbg, users.verify);
@@ -40,7 +43,12 @@ function load(app, fn){
 
   app.post('/loginu', dbg, users.login);
 
+  app.post('/users/:id/delete', dbg, users.delete);
+
   app.get('/userportal', dbg, users.portal);
+
+  app.get('/ops', dbg, ops.index);
+  app.post('/operation', dbg, ops.new);
 
   console.log('Routes Loaded');
   fn();

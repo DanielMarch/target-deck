@@ -2,6 +2,7 @@
 
 var traceur = require('traceur');
 var Org = traceur.require(__dirname + '/../models/org.js');
+var User = traceur.require(__dirname + '/../models/user.js');
 var multiparty = require('multiparty');
 
 exports.register = (req, res)=>{
@@ -57,4 +58,13 @@ exports.logout = (req, res)=>{
 
 exports.portal = (req, res)=>{
   res.render('org/portal', {title: 'Target-Deck: Organization Portal'});
+};
+
+exports.manage = (req, res)=>{
+  Org.findById(req.session.userId, org=>{
+    User.findByOrgId(org._id, users=>{
+      console.log(users);
+      res.render('org/manage', {org:org, users:users, title: 'Target-Deck: Manage Organization Members'});
+    });
+  });
 };

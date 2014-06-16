@@ -1,0 +1,27 @@
+extends ../shared/template
+
+block content
+  h1= title
+  table
+    thead
+      tr
+        th
+          | Name
+        th
+          | Email
+        th
+          | Affiliation
+        th
+          | DSN
+        th
+          | Remove from Organization
+    tbody
+      each user in users
+        tr
+          td= user.name
+          td= user.email
+          td= user.affiliation
+          td= user.dsn
+          td
+            form(method='POST', action='/users/#{user._id}/delete')
+              button X
