@@ -1,0 +1,20 @@
+extends ../shared/template
+
+block content
+  h1= title
+
+  form(method='post', action='/verifyu/' + u._id, enctype='multipart/form-data')
+    label Password:
+    input(type='password', name='password', autofocus=true, placeholder='Enter Password', required='required')
+    label Name:
+    input(type='text', name='name', autofocus=true, placeholder='Enter Name', required='required')
+    label Affiliation:
+    input(type='radio', name='affiliation', value='MIL')
+    | MIL
+    input(type='radio', name='affiliation', value='CON')
+    | CON
+    input(type='radio', name='affiliation', value='CIV')
+    | CIV
+    label DSN:
+    input(type='text', name='dsn', autofocus=true, placeholder='Enter DSN', required='required')
+    button Finalize User Profile
