@@ -1,0 +1,15 @@
+extends ../shared/template
+
+block content
+  form(method='post', action='/verify/' + o._id, enctype='multipart/form-data')
+    label Password:
+    input(type='password', name='password', autofocus=true, placeholder='Enter Password', required='required')
+    label Org Name:
+    input(type='text', name='name', autofocus=true, placeholder='Enter Organization Name', required='required')
+    label DSN:
+    input(type='text', name='dsn', autofocus=true, placeholder='Enter DSN', required='required')
+    label POC:
+    input(type='text', name='poc', autofocus=true, placeholder='Enter POC', required='required')
+    label Logo:
+    input(type='file', name='logo')
+    button Finalize Organization

@@ -1,0 +1,11 @@
+extends ../shared/template
+
+block content
+  a(href='/register') Register
+  h1= title
+
+  h1 Organization Login
+  form(method='post', action='/logino')
+    input(type='email', name='email', placeholder='Email', autofocus=true, required='required')
+    input(type='password', name='password', placeholder='Password', required='required')
+    button Login
