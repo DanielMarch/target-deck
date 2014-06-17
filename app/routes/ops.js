@@ -5,7 +5,6 @@ var Org = traceur.require(__dirname + '/../models/org.js');
 var Op = traceur.require(__dirname + '/../models/op.js');
 var User = traceur.require(__dirname + '/../models/user.js');
 var multiparty = require('multiparty');
-var _ = require('lodash');
 
 exports.index = (req, res)=>{
   Org.findById(req.session.userId, org=>{
@@ -31,10 +30,9 @@ exports.new = (req, res)=>{
 exports.delete = (req, res)=>{
   Op.findById(req.params.id, op=>{
     if(req.session.userId.toString() === op.org.toString()){
-      op = _.create(Op.prototype, op);
       op.destroy(()=>res.redirect('/ops'));
     }else{
-      res.redirect('/ops');
+      res.redirect('/dash');
     }
   });
 };

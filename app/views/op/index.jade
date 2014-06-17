@@ -4,9 +4,9 @@ block content
   h1= title
 
   h1 New Operation
-  form(method='post', action='/operation', enctype='multipart/form-data')
+  form(method='post', action='/operation/new', enctype='multipart/form-data')
     label Operation Name:
-    input(type='text', name='name', autofocus=true, placeholder='Enter Operation Name', required='required')
+    input(type='text', name='name', autofocus=true, placeholder='Enter Operation Name')
     label Expiry:
     input(type='date', name='date')
     label POC:
@@ -16,26 +16,26 @@ block content
           option(value='#{user._id}')= user.name
     button Create Operation
 
-    table
-      thead
+  table
+    thead
+      tr
+        th
+          | Operation Name
+        th
+          | Expiry
+        th
+          | Unit
+        th
+          | POC
+        th
+          | Remove Operation
+    tbody
+      each op in ops
         tr
-          th
-            | Operation Name
-          th
-            | Expiry
-          th
-            | Unit
-          th
-            | POC
-          th
-            | Remove Operation
-      tbody
-        each op in ops
-          tr
-            td= op.name
-            td= op.date
-            td #{org.name}
-            td= op.poc
-            td
-              form(method='POST', action='/ops/#{op._id}/delete')
-                button X
+          td= op.name
+          td= op.date
+          td #{org.name}
+          td= op.poc
+          td
+            form(method='POST', action='/ops/#{op._id}/delete')
+              button X

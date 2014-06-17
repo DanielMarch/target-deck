@@ -19,6 +19,8 @@ function load(app, fn){
   var users = traceur.require(__dirname + '/../routes/users.js');
   var ops = traceur.require(__dirname + '/../routes/ops.js');
 
+  app.all('*', orgs.lookup);
+
   app.get('/', dbg, home.index);
   app.get('/about', dbg, home.about);
   app.get('/dash', dbg, home.dash);
@@ -27,23 +29,26 @@ function load(app, fn){
   app.post('/register', dbg, orgs.validate);
   app.get('/verify/:id', dbg, orgs.verify);
   app.post('/verify/:id', dbg, orgs.update);
-  app.post('/logino', dbg, orgs.login);
 
-  app.post('/registeru', dbg, users.validate);
   app.get('/verifyu/:id', dbg, users.verify);
   app.post('/verifyu/:id', dbg, users.update);
+
+  app.post('/logino', dbg, orgs.login);
+  app.post('/loginu', dbg, users.login);
+
+  app.all('*', dbg, orgs.bounce);
 
   app.get('/logout', dbg, orgs.logout);
   app.get('/portal', dbg, orgs.portal);
   app.get('/manage', dbg, orgs.manage);
 
-  app.post('/loginu', dbg, users.login);
+  app.post('/registeru', dbg, users.validate);
   app.post('/users/:id/delete', dbg, users.delete);
   app.get('/userportal', dbg, users.portal);
 
-  app.get('/ops', dbg, ops.index);
-  app.post('/operation', dbg, ops.new);
   app.post('/ops/:id/delete', dbg, ops.delete);
+  app.get('/ops', dbg, ops.index);
+  app.post('/operation/new', dbg, ops.new);
 
   console.log('Routes Loaded');
   fn();

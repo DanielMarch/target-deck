@@ -56,6 +56,39 @@ exports.logout = (req, res)=>{
   res.redirect('/dash');
 };
 
+exports.lookup = (req, res, next)=>{
+  User.findById(req.session.userId, u=>{
+    if(u){
+      res.locals.user = u;
+      console.log('Found User: ');
+      console.log(res.locals.user);
+      next();
+    }else{
+      Org.findById(req.session.userId, o=>{
+        if(o){
+          res.locals.user = o;
+          console.log('Found Org: ');
+          console.log(res.locals.user);
+          next();
+        }else{
+          res.locals.user = null;
+          console.log('Found Fuck All: ');
+          console.log(res.locals.user);
+          next();
+        }
+      });
+    }
+  });
+};
+
+exports.bounce = (req, res, next)=>{
+  if(res.locals.user){
+    next();
+  }else{
+    res.redirect('/dash');
+  }
+};
+
 exports.portal = (req, res)=>{
   res.render('org/portal', {title: 'Target-Deck: Organization Portal'});
 };

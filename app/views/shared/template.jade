@@ -8,8 +8,11 @@ html
     nav
       a(href='/') Home
       a(href='/about') About
-      a(href='/dash') Login
-      a(href='/logout') Logout
+      if(!user)
+        a(href='/dash') Login
+      if(user)
+        a(href='/logout') Logout
+        p= user.email
     block content
 
     script(src='/js/vendor/jquery-2.1.1.js')

@@ -3,7 +3,6 @@
 var traceur = require('traceur');
 var User = traceur.require(__dirname + '/../models/user.js');
 var multiparty = require('multiparty');
-var _ = require('lodash');
 
 exports.validate = (req, res)=>{
   User.create(req.body, req.session.userId, user=>{
@@ -52,7 +51,6 @@ exports.portal = (req, res)=>{
 exports.delete = (req, res)=>{
   User.findById(req.params.id, user=>{
     if(req.session.userId.toString() === user.org.toString()){
-      user = _.create(User.prototype, user);
       user.destroy(()=>res.redirect('/manage'));
     }else{
       res.redirect('/dash');
