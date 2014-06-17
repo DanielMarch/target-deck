@@ -3,11 +3,6 @@ extends ../shared/template
 block content
   h1= title
 
-  h1 Add User
-  form(method='post', action='/registeru')
-    input(type='email', name='email', autofocus=true, placeholder='Email Address', required='required')
-    button Register User
-
   a(href='/manage') Manage Organization Members
   br
   a(href='/ops') Manage Organization Operations

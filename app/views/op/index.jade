@@ -15,3 +15,27 @@ block content
         each user in users
           option(value='#{user._id}')= user.name
     button Create Operation
+
+    table
+      thead
+        tr
+          th
+            | Operation Name
+          th
+            | Expiry
+          th
+            | Unit
+          th
+            | POC
+          th
+            | Remove Operation
+      tbody
+        each op in ops
+          tr
+            td= op.name
+            td= op.date
+            td #{org.name}
+            td= op.poc
+            td
+              form(method='POST', action='/ops/#{op._id}/delete')
+                button X
