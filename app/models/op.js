@@ -4,12 +4,18 @@ var _ = require('lodash');
 
 class Op{
   static create(obj, id, fn){
-    var op = new Op();
-    op.name = obj.name[0].toUpperCase();
-    op.date = new Date(obj.date[0]);
-    op.poc = Mongo.ObjectID(obj.poc[0]);
-    op.org = Mongo.ObjectID(id);
-    opCollection.save(op, ()=>fn(op));
+    opCollection.findOne({name:obj.name[0].toUpperCase()}, (e,o)=>{
+      if(o){
+        fn(null);
+      }else{
+        var op = new Op();
+        op.name = obj.name[0].toUpperCase();
+        op.date = new Date(obj.date[0]);
+        op.poc = Mongo.ObjectID(obj.poc[0]);
+        op.org = Mongo.ObjectID(id);
+        opCollection.save(op, ()=>fn(op));
+      }
+    });
   }
 
   static findByOrgId(orgId, fn){
