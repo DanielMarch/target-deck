@@ -18,6 +18,7 @@ function load(app, fn){
   var orgs = traceur.require(__dirname + '/../routes/orgs.js');
   var users = traceur.require(__dirname + '/../routes/users.js');
   var ops = traceur.require(__dirname + '/../routes/ops.js');
+  var obj = traceur.require(__dirname + '/../routes/objs.js');
 
   app.all('*', orgs.lookup);
 
@@ -49,6 +50,9 @@ function load(app, fn){
   app.post('/ops/:id/delete', dbg, ops.delete);
   app.get('/ops', dbg, ops.index);
   app.post('/operation/new', dbg, ops.new);
+
+  app.get('/obj/new', dbg, obj.new);
+  app.post('/obj/new', dbg, obj.create);
 
   console.log('Routes Loaded');
   fn();

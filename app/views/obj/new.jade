@@ -1,0 +1,36 @@
+extends ../shared/template
+
+block content
+  h1= title
+  form(method='post', action='/obj/new', enctype='multipart/form-data')
+    label Objective Name:
+    input(type='text', name='obj', autofocus=true, placeholder='Enter Objective Name', required='required')
+    label Name If Known:
+    input(type='text', name='name', autofocus=true, placeholder='Enter Name, If Known')
+    label Priority:
+    select(type='select', name='priority')
+      option Select Priority
+      option 1
+      option 2
+      option 3
+      option 4
+      option 5
+    label Operation
+    select(type='select', name='operation')
+      option Select Operation
+        each op in ops
+          option(value='#{op._id}')= op.name
+    label Status:
+    select(type='select', name='status')
+      option Select Obj Status
+      option EKIA
+      option DETAINED
+      option AT LARGE
+      option UNKNOWN
+    label Profile Picture:
+    input(type='file', name='profile')
+    label Imagery:
+    input(type='file', name='imagery', multiple=true)
+    label Reports:
+    input(type='file', name='reports', multiple=true)
+    button Create Operation

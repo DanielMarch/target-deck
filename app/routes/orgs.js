@@ -60,20 +60,14 @@ exports.lookup = (req, res, next)=>{
   User.findById(req.session.userId, u=>{
     if(u){
       res.locals.user = u;
-      console.log('Found User: ');
-      console.log(res.locals.user);
       next();
     }else{
       Org.findById(req.session.userId, o=>{
         if(o){
           res.locals.user = o;
-          console.log('Found Org: ');
-          console.log(res.locals.user);
           next();
         }else{
           res.locals.user = null;
-          console.log('Found Fuck All: ');
-          console.log(res.locals.user);
           next();
         }
       });
@@ -96,7 +90,6 @@ exports.portal = (req, res)=>{
 exports.manage = (req, res)=>{
   Org.findById(req.session.userId, org=>{
     User.findByOrgId(org._id, users=>{
-      console.log(users);
       res.render('org/manage', {org:org, users:users, title: 'Target-Deck: Manage Organization Members'});
     });
   });
