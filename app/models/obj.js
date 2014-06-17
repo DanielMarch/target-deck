@@ -32,6 +32,12 @@ class Obj{
       }
     });
   }
+
+  static findByOrgId(orgId, fn){
+    objCollection.find({orgId: orgId}).toArray((e, objs)=>{
+      fn(objs);
+    });
+  }
 }
 
 module.exports = Obj;

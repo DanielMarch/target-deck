@@ -1,8 +1,11 @@
 'use strict';
 
 var traceur = require('traceur');
+var Obj = traceur.require(__dirname + '/../models/obj.js');
 var User = traceur.require(__dirname + '/../models/user.js');
+var Op = traceur.require(__dirname + '/../models/op.js');
 var multiparty = require('multiparty');
+var _ = require('lodash');
 
 exports.validate = (req, res)=>{
   User.create(req.body, req.session.userId, user=>{
@@ -45,7 +48,15 @@ exports.login = (req, res)=>{
 };
 
 exports.portal = (req, res)=>{
-  res.render('user/portal', {title: 'Target-Deck: User Portal'});
+  User.findById(req.session.userId, user=>{
+    Op.findByOrgId(user.org, ops=>{
+      Obj.findByOrgId(user.org, objs=>{
+        console.log(objs);
+        console.log(ops);
+        res.render('user/portal', {_:_, ops:ops, objs:objs, title: 'Target-Deck: User Portal'});
+      });
+    });
+  });
 };
 
 exports.delete = (req, res)=>{

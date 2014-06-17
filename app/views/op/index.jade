@@ -31,11 +31,12 @@ block content
           | Remove Operation
     tbody
       each op in ops
+        - var userIndex = _.findIndex(users,{'_id': op.poc})
         tr
           td= op.name
           td= op.date
           td #{org.name}
-          td= op.poc
+          td= users[userIndex].name
           td
             form(method='POST', action='/ops/#{op._id}/delete')
               button X

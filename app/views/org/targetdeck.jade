@@ -2,8 +2,6 @@ extends ../shared/template
 
 block content
   h1= title
-  a(href='/obj/new') New Objective
-
   table
     thead
       tr
@@ -17,8 +15,6 @@ block content
           | Objective Name
         th
           | Status
-        th
-          | Edit/Delete
     tbody
       each obj in objs
         - var opIndex = _.findIndex(ops,{'_id': obj.opId})
@@ -28,6 +24,3 @@ block content
           td= ops[opIndex].name
           td= obj.objname
           td= obj.status
-          //- td
-          //-   form(method='POST', action='/users/#{user._id}/delete')
-          //-     button X

@@ -5,13 +5,14 @@ var Org = traceur.require(__dirname + '/../models/org.js');
 var Op = traceur.require(__dirname + '/../models/op.js');
 var User = traceur.require(__dirname + '/../models/user.js');
 var multiparty = require('multiparty');
+var _ = require('lodash');
 
 exports.index = (req, res)=>{
   Org.findById(req.session.userId, org=>{
     User.findByOrgId(org._id, users=>{
       Op.findByOrgId(org._id, ops=>{
         console.log(users);
-        res.render('op/index', {users:users, org:org, ops:ops, title: 'Target-Deck: Manage Organization Operations'});
+        res.render('op/index', {_:_, users:users, org:org, ops:ops, title: 'Target-Deck: Manage Organization Operations'});
       });
     });
   });

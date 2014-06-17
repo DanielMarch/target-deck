@@ -9,7 +9,10 @@ var multiparty = require('multiparty');
 exports.new = (req, res)=>{
   User.findById(req.session.userId, user=>{
     Op.findByOrgId(user.org, ops=>{
-      res.render('obj/new', {ops:ops, title: 'Target-Deck: New Objective'});
+      Obj.findByOrgId(user.org, objs=>{
+        console.log(objs);
+        res.render('obj/new', {ops:ops, objs:objs, title: 'Target-Deck: New Objective'});
+      });
     });
   });
 };

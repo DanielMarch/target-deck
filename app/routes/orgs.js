@@ -2,8 +2,11 @@
 
 var traceur = require('traceur');
 var Org = traceur.require(__dirname + '/../models/org.js');
+var Obj = traceur.require(__dirname + '/../models/obj.js');
 var User = traceur.require(__dirname + '/../models/user.js');
+var Op = traceur.require(__dirname + '/../models/op.js');
 var multiparty = require('multiparty');
+var _ = require('lodash');
 
 exports.register = (req, res)=>{
   res.render('org/register', {title: 'Target-Deck: Register New Organization'});
@@ -91,6 +94,18 @@ exports.manage = (req, res)=>{
   Org.findById(req.session.userId, org=>{
     User.findByOrgId(org._id, users=>{
       res.render('org/manage', {org:org, users:users, title: 'Target-Deck: Manage Organization Members'});
+    });
+  });
+};
+
+exports.targetdeck = (req, res)=>{
+  Org.findById(req.session.userId, org=>{
+    Obj.findByOrgId(org._id, objs=>{
+      Op.findByOrgId(org._id, ops=>{
+        console.log(objs);
+        console.log(ops);
+        res.render('org/targetdeck', {_:_, objs:objs, ops:ops, title: 'Target-Deck: Organization Target-Deck'});
+      });
     });
   });
 };
