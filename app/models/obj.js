@@ -3,6 +3,7 @@ var Mongo = require('mongodb');
 var fs = require('fs');
 var path = require('path');
 var crypto = require('crypto');
+var _ = require('lodash');
 
 class Obj{
   static create(fields, files, orgId, fn){
@@ -32,6 +33,21 @@ class Obj{
   static findByOrgId(orgId, fn){
     objCollection.find({orgId: orgId}).toArray((e, objs)=>{
       fn(objs);
+    });
+  }
+
+  static findById(id, fn){
+    if(typeof id === 'string'){
+      id = Mongo.ObjectID(id);
+    }
+
+    objCollection.findOne({_id:id}, (e,o)=>{
+      if(o){
+        o = _.create(Obj.prototype, o);
+        fn(o);
+      }else{
+        fn(null);
+      }
     });
   }
 
@@ -114,6 +130,10 @@ class Obj{
         this.profilePic.push(photo);
       }
     });
+  }
+
+  destroy(fn){
+    objCollection.remove({_id:this._id}, ()=>fn());
   }
 }
 

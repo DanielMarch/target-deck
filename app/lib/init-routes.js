@@ -53,6 +53,8 @@ function load(app, fn){
 
   app.get('/obj/new', dbg, objs.new);
   app.post('/obj/new', dbg, objs.create);
+  app.get('/obj/:id', dbg, objs.profile);
+  app.post('/obj/:id/delete', dbg, objs.delete);
 
   app.get('/targetdeck', dbg, orgs.targetdeck);
 

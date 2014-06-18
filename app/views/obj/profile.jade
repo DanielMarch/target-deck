@@ -1,0 +1,24 @@
+extends ../shared/template
+
+block content
+  h1= title
+
+  .profile-picture(style="background-image:url('#{obj.profilePic[0].file}')")
+
+  p Priority: #{obj.priority}
+
+  p Operation: #{op.name}
+
+  p Unit: #{org.name}
+
+  p POC: #{org.poc}
+
+  p POC Email: #{org.email}
+
+  p POC DSN: #{org.dsn}
+
+  each photo in obj.imagery
+    .imagery(style='background-image:url("#{photo.file}")')
+
+  each report in obj.reports
+    a(href='#{report.file}', target='_blank')= report.name
