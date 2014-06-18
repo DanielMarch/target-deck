@@ -51,6 +51,17 @@ class Obj{
     });
   }
 
+  static search(params, fn){
+    var objname = new RegExp(params.toUpperCase().toString());
+    objCollection.find({objname:{$in:[objname]}}).toArray((e, objs)=>{
+      if(objs.length > 0){
+        fn(objs);
+      }else{
+        fn(null);
+      }
+    });
+  }
+
   processImagery(photos){
     photos.forEach(p=>{
       if(p.size){

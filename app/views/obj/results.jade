@@ -3,12 +3,6 @@ extends ../shared/template
 block content
   h1= title
 
-  form(method='GET',action='/obj/search')
-    input(type=text, name='search', autofocus=true, placeholder='Search By Objective')
-    button Search
-
-  a(href='/obj/new') New Objective
-
   table
     thead
       tr
@@ -22,8 +16,6 @@ block content
           | Objective Name
         th
           | Status
-        th
-          | Delete
     tbody
       each obj in objs
         - var opIndex = _.findIndex(ops,{'_id': obj.opId})
@@ -36,6 +28,3 @@ block content
           td= ops[opIndex].name
           td= obj.objname
           td= obj.status
-          td
-            form(method='POST', action='/obj/#{obj._id}/delete')
-              button X

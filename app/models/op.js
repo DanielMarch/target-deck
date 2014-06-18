@@ -39,6 +39,13 @@ class Op{
     });
   }
 
+  static findAll(fn){
+    opCollection.find().toArray((err, ops)=>{
+      ops = ops.map(o=>_.create(Op.prototype, o));
+      fn(ops);
+    });
+  }
+
   destroy(fn){
     opCollection.remove({_id:this._id}, ()=>fn());
   }

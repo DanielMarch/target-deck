@@ -50,3 +50,15 @@ exports.profile = (req, res)=>{
     });
   });
 };
+
+exports.search = (req, res)=>{
+  Obj.search(req.query.search, objs=>{
+    if(objs === null){
+      res.redirect('/userportal');
+    }else{
+      Op.findAll(ops=>{
+        res.render('obj/results', {_:_, ops:ops, objs:objs, title: 'Target-Deck: Search Results'});
+      });
+    }
+  });
+};
