@@ -23,7 +23,9 @@ block content
       each obj in objs
         - var opIndex = _.findIndex(ops,{'_id': obj.opId})
         tr
-          td.photo(style="background-image:url('#{obj.profilePhoto}')")
+          td
+            each pic in obj.profilePic
+              .photo(style="background-image:url('#{pic.file}')")
           td= obj.priority
           td= ops[opIndex].name
           td= obj.objname

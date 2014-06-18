@@ -2,6 +2,7 @@ var objCollection = global.nss.db.collection('objs');
 var Mongo = require('mongodb');
 var fs = require('fs');
 var path = require('path');
+var crypto = require('crypto');
 
 class Obj{
   static create(fields, files, orgId, fn){
@@ -17,17 +18,12 @@ class Obj{
         obj.priority = fields.priority[0];
         obj.opId = Mongo.ObjectID(fields.operation[0]);
         obj.orgId = Mongo.ObjectID(orgId);
-        if(files.profile[0].size !== 0){
-          obj.profilePhoto = `/img/${obj._id.toString()}/${files.profile[0].originalFilename}`;
-          var orgDir = `${__dirname}/../static/img/${obj._id.toString()}`;
-          orgDir = path.normalize(orgDir).toString();
-          obj.profilePhotoPath = `${orgDir}/${files.profile[0].originalFilename}`;
-          obj.profilePhotoDir = orgDir;
-          if(!fs.existsSync(orgDir)){
-            fs.mkdirSync(orgDir);
-          }
-          fs.renameSync(files.profile[0].path, obj.profilePhotoPath);
-        }
+        obj.imagery = [];
+        obj.processImagery(files.imagery);
+        obj.reports = [];
+        obj.processReports(files.reports);
+        obj.profilePic = [];
+        obj.processProfilePic(files.profile);
         objCollection.save(obj, ()=>fn(obj));
       }
     });
@@ -36,6 +32,87 @@ class Obj{
   static findByOrgId(orgId, fn){
     objCollection.find({orgId: orgId}).toArray((e, objs)=>{
       fn(objs);
+    });
+  }
+
+  processImagery(photos){
+    photos.forEach(p=>{
+      if(p.size){
+        var name = crypto.randomBytes(12).toString('hex') + path.extname(p.originalFilename).toLowerCase();
+        var file = `/img/${this.orgId}/${this._id}/${name}`;
+
+        var photo = {};
+        photo.name = name;
+        photo.file = file;
+        photo.size = p.size;
+        photo.orig = p.originalFilename;
+
+        var orgDir = `${__dirname}/../static/img/${this.orgId}`;
+        var objDir = `${orgDir}/${this._id}`;
+        var fullDir = `${objDir}/${name}`;
+
+        if(!fs.existsSync(orgDir)){fs.mkdirSync(orgDir);}
+        if(!fs.existsSync(objDir)){fs.mkdirSync(objDir);}
+
+        fs.renameSync(p.path, fullDir);
+
+        this.objDir = path.normalize(objDir);
+        this.imagery.push(photo);
+      }
+    });
+  }
+
+  processReports(reports){
+    reports.forEach(r=>{
+      if(r.size){
+        var name = crypto.randomBytes(12).toString('hex') + path.extname(r.originalFilename).toLowerCase();
+        var file = `/files/${this.orgId}/${this._id}/${name}`;
+
+        var report = {};
+        report.name = name;
+        report.file = file;
+        report.size = r.size;
+        report.orig = r.originalFilename;
+
+        var orgDir = `${__dirname}/../static/files/${this.orgId}`;
+        var objDir = `${orgDir}/${this._id}`;
+        var fullDir = `${objDir}/${name}`;
+
+        if(!fs.existsSync(orgDir)){fs.mkdirSync(orgDir);}
+        if(!fs.existsSync(objDir)){fs.mkdirSync(objDir);}
+
+        fs.renameSync(r.path, fullDir);
+
+        this.objDir = path.normalize(objDir);
+        this.reports.push(report);
+      }
+    });
+  }
+
+  processProfilePic(photos){
+    photos.forEach(p=>{
+      if(p.size){
+        var name = crypto.randomBytes(12).toString('hex') + path.extname(p.originalFilename).toLowerCase();
+        var file = `/img/${this.orgId}/${this._id}/${name}`;
+
+        var photo = {};
+        photo.name = name;
+        photo.file = file;
+        photo.size = p.size;
+        photo.orig = p.originalFilename;
+
+        var orgDir = `${__dirname}/../static/img/${this.orgId}`;
+        var objDir = `${orgDir}/${this._id}`;
+        var fullDir = `${objDir}/${name}`;
+
+        if(!fs.existsSync(orgDir)){fs.mkdirSync(orgDir);}
+        if(!fs.existsSync(objDir)){fs.mkdirSync(objDir);}
+
+        fs.renameSync(p.path, fullDir);
+
+        this.objDir = path.normalize(objDir);
+        this.profilePic.push(photo);
+      }
     });
   }
 }

@@ -52,7 +52,6 @@ exports.portal = (req, res)=>{
     Op.findByOrgId(user.org, ops=>{
       Obj.findByOrgId(user.org, objs=>{
         console.log(objs);
-        console.log(ops);
         res.render('user/portal', {_:_, ops:ops, objs:objs, title: 'Target-Deck: User Portal'});
       });
     });

@@ -18,8 +18,6 @@ class Org{
         org.password = '';
         org.dsn = '';
         org.poc = '';
-        org.obj = [];
-        org.op = [];
         org.isValid = false;
 
         orgCollection.save(org, ()=>{
