@@ -62,6 +62,24 @@ class Obj{
     });
   }
 
+  update(fields, files){
+    this.objname = fields.obj[0].toUpperCase();
+    this.name = fields.name[0].toUpperCase();
+    this.status = fields.status[0].toUpperCase();
+    this.priority = fields.priority[0];
+    this.opId = Mongo.ObjectID(fields.operation[0]);
+    this.imagery = [];
+    this.processImagery(files.imagery);
+    this.reports = [];
+    this.processReports(files.reports);
+    this.profilePic = [];
+    this.processProfilePic(files.profile);
+  }
+
+  save(fn) {
+    objCollection.save(this, ()=>fn());
+  }
+
   processImagery(photos){
     photos.forEach(p=>{
       if(p.size){
@@ -92,7 +110,7 @@ class Obj{
   processReports(reports){
     reports.forEach(r=>{
       if(r.size){
-        var name = crypto.randomBytes(12).toString('hex') + path.extname(r.originalFilename).toLowerCase();
+        var name = r.originalFilename.toUpperCase();
         var file = `/files/${this.orgId}/${this._id}/${name}`;
 
         var report = {};

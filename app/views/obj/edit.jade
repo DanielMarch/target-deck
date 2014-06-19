@@ -2,11 +2,11 @@ extends ../shared/template
 
 block content
   h1= title
-  form(method='post', action='/obj/new', enctype='multipart/form-data')
+  form(method='post', action='/obj/#{obj._id}/edit', enctype='multipart/form-data')
     label Objective Name:
-    input(type='text', name='obj', autofocus=true, placeholder='Enter Objective Name', required='required')
+    input(type='text', name='obj', autofocus=true, placeholder='Enter Objective Name', required='required', value=obj.objname)
     label Name If Known:
-    input(type='text', name='name', autofocus=true, placeholder='Enter Name, If Known')
+    input(type='text', name='name', autofocus=true, placeholder='Enter Name, If Known', value=obj.name)
     label Priority:
     select(type='select', name='priority')
       option Select Priority

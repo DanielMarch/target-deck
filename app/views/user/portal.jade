@@ -24,6 +24,8 @@ block content
           | Status
         th
           | Delete
+        th
+          | Edit
     tbody
       each obj in objs
         - var opIndex = _.findIndex(ops,{'_id': obj.opId})
@@ -39,3 +41,5 @@ block content
           td
             form(method='POST', action='/obj/#{obj._id}/delete')
               button X
+          td
+            a(href='/obj/#{obj._id}/edit') Edit

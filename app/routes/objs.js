@@ -32,6 +32,18 @@ exports.create = (req, res)=>{
   });
 };
 
+exports.edit = (req, res)=>{
+  Obj.findById(req.params.id, obj=>{
+    var form = new multiparty.Form();
+    form.parse(req, (err, fields, files)=>{
+      obj.update(fields, files);
+      obj.save(()=>{
+        res.redirect('/userportal');
+      });
+    });
+  });
+};
+
 exports.delete = (req, res)=>{
   Obj.findById(req.params.id, obj=>{
     obj.destroy(()=>res.redirect('/userportal'));
@@ -42,9 +54,6 @@ exports.profile = (req, res)=>{
   Obj.findById(req.params.id, obj=>{
     Org.findById(obj.orgId, org=>{
       Op.findById(obj.opId, op=>{
-        console.log(op);
-        console.log(obj);
-        console.log(org);
         res.render('obj/profile', {_:_, obj:obj, org:org, op:op, title: 'Target-Deck: ' + obj.objname});
       });
     });
@@ -60,5 +69,15 @@ exports.search = (req, res)=>{
         res.render('obj/results', {_:_, ops:ops, objs:objs, title: 'Target-Deck: Search Results'});
       });
     }
+  });
+};
+
+exports.prepedit = (req, res)=>{
+  Obj.findById(req.params.id, obj=>{
+    User.findById(req.session.userId, user=>{
+      Op.findByOrgId(user.org, ops=>{
+        res.render('obj/edit', {obj:obj, ops:ops, title: 'Target-Deck: ' + obj.objname + ' Edit'});
+      });
+    });
   });
 };
