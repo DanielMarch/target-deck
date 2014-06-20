@@ -1,42 +1,80 @@
 extends ../shared/template
 
 block content
-  h1= title
-
-  h1 New Operation
-  form(method='post', action='/operation/new', enctype='multipart/form-data')
-    label Operation Name:
-    input(type='text', name='name', autofocus=true, placeholder='Enter Operation Name')
-    label Expiry:
-    input(type='date', name='date')
-    label POC:
-    select(type='select', name='poc')
-      option Select POC
-        each user in users
-          option(value='#{user._id}')= user.name
-    button Create Operation
-
-  table
-    thead
-      tr
-        th
-          | Operation Name
-        th
-          | Expiry
-        th
-          | Unit
-        th
-          | POC
-        th
-          | Remove Operation
-    tbody
-      each op in ops
-        - var userIndex = _.findIndex(users,{'_id': op.poc})
-        tr
-          td= op.name
-          td= op.date
-          td #{org.name}
-          td= users[userIndex].name
-          td
-            form(method='POST', action='/ops/#{op._id}/delete')
-              button X
+  .container
+    .row.clearfix
+      .col-md-12.column
+        nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse(role='navigation')
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand(href='/portal') Target Deck
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            ul.nav.navbar-nav
+              li
+                a(href='/portal') Home
+              li
+                a(href='/manage') Members
+              li.active
+                a(href='/ops') Operations
+              li
+                a(href='/targetdeck') Target Deck
+            ul.nav.navbar-nav.navbar-right
+              if(!user)
+                li
+                  a(href='/dash') Login
+              if(user)
+                li
+                  a(href='/logout') Logout
+    .row.clearfix#buffer
+      .col-md-12.column
+        table.table
+          thead
+            tr
+              th
+                | Operation Name
+              th
+                | Expiry
+              th
+                | Unit
+              th
+                | POC
+              th
+                | Remove
+          tbody
+            each op in ops
+              - var userIndex = _.findIndex(users,{'_id': op.poc})
+              tr
+                td= op.name
+                td= op.date
+                td #{org.name}
+                td= users[userIndex].name
+                td
+                  form(method='POST', action='/ops/#{op._id}/delete')
+                    input.delete(type='image', src='img/delete.png', alt='Submit')
+    .row.clearfix
+      .col-md-4.column
+        #panel-612127.panel-group
+          .panel.panel-default
+            .panel-heading
+              a.panel-title(data-toggle='collapse', data-parent='#panel-612127', href='#panel-element-402369') Add Operation
+            #panel-element-402369.panel-collapse.collapse.in
+              .panel-body
+                form(method='post', action='/operation/new', enctype='multipart/form-data')
+                  .form-group
+                    label Operation Name
+                    input.form-control(type='text', name='name', autofocus=true, placeholder='Enter Operation Name')
+                  .form-group
+                    label Expiry
+                    input.form-control(type='date', name='date')
+                  .form-group
+                    label POC
+                    select.form-control(type='select', name='poc')
+                      option Select POC
+                        each user in users
+                          option(value='#{user._id}')= user.name
+                  button.btn.btn-default Create Operation
+      .col-md-4.column

@@ -1,17 +1,52 @@
 extends ../shared/template
 
 block content
-  a(href='/register') Register Organization
-  h1= title
-
-  h1 Organization Login
-  form(method='post', action='/logino')
-    input(type='email', name='email', placeholder='Email', autofocus=true, required='required')
-    input(type='password', name='password', placeholder='Password', required='required')
-    button Login
-
-  h1 User Login
-  form(method='post', action='/loginu')
-    input(type='email', name='email', placeholder='Email', autofocus=true, required='required')
-    input(type='password', name='password', placeholder='Password', required='required')
-    button Login
+  .container
+    .row.clearfix
+      .col-md-12.column
+        nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse(role='navigation')
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand(href='/') Target Deck
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            ul.nav.navbar-nav
+              li
+                a(href='/about') About
+            ul.nav.navbar-nav.navbar-right
+              li
+                a(href='/register') Register Organization
+              if(!user)
+                li.active
+                  a(href='/dash') Login
+              if(user)
+                li
+                  a(href='/logout') Logout
+      .row.clearfix#buffer
+        .col-md-6.column
+          .page-header
+            h1
+              small Organization Login
+          form(method='post', action='/logino')
+            .form-group
+              label Email address
+              input.form-control(type='email', name='email', placeholder='Email', autofocus=true, required='required')
+            .form-group
+              label Password
+              input.form-control(type='password', name='password', placeholder='Password', required='required')
+            button.btn.btn-default Login
+        .col-md-6.column
+          .page-header
+            h1
+              small User Login
+          form(method='post', action='/loginu')
+            .form-group
+              label Email address
+              input.form-control(type='email', name='email', placeholder='Email', autofocus=true, required='required')
+            .form-group
+              label Password
+              input.form-control(type='password', name='password', placeholder='Password', required='required')
+            button.btn.btn-default Login

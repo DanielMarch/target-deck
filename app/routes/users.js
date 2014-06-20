@@ -10,9 +10,9 @@ var _ = require('lodash');
 exports.validate = (req, res)=>{
   User.create(req.body, req.session.userId, user=>{
     if(user){
-      res.redirect('/portal');
+      res.redirect('/manage');
     }else{
-      res.redirect('/portal');
+      res.redirect('/manage');
     }
   });
 };
