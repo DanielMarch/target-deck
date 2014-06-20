@@ -29,53 +29,55 @@ block content
               if(user)
                 li
                   a(href='/logout') Logout
-    .row.clearfix#buffer
-      .col-md-12.column
-        table.table
-          thead
-            tr
-              th
-                | Name
-              th
-                | Email
-              th
-                | Affiliation
-              th
-                | DSN
-              th
-                | Remove
-          tbody
-            each user in users
-              if(user.isValid)
-                tr.success
-                  td= user.name
-                  td= user.email
-                  td= user.affiliation
-                  td= user.dsn
-                  td
-                    form(method='POST', action='/users/#{user._id}/delete')
-                      input.delete(type='image', src='img/delete.png', alt='Submit')
-              if(!user.isValid)
-                tr.danger
-                  td= user.name
-                  td= user.email
-                  td= user.affiliation
-                  td= user.dsn
-                  td
-                    form(method='POST', action='/users/#{user._id}/delete')
-                      input.delete(type='image', src='img/delete.png', alt='Submit')
-    .row.clearfix
-      .col-md-4.column
-        #panel-612127.panel-group
-          .panel.panel-default
-            .panel-heading
-              a.panel-title(data-toggle='collapse', data-parent='#panel-612127', href='#panel-element-402369') Add Member
-            #panel-element-402369.panel-collapse.collapse.in
-              .panel-body
-                form(method='post', action='/registeru')
-                  .form-group
-                    label New Member Email Address
-                    input.form-control(type='email', name='email', autofocus=true, placeholder='Email Address', required='required')
-                  button.btn.btn-default Register New Member
-      .col-md-4.column
-      .col-md-4.column
+    .col-md-12.column#buffer
+      .page-header
+        h1
+          small Members
+    .col-md-12.column
+      table.table.table-hover
+        thead
+          tr
+            th
+              | Name
+            th
+              | Email
+            th
+              | Affiliation
+            th
+              | DSN
+            th
+              | Remove
+        tbody
+          each user in users
+            if(user.isValid)
+              tr.success
+                td= user.name
+                td= user.email
+                td= user.affiliation
+                td= user.dsn
+                td
+                  form(method='POST', action='/users/#{user._id}/delete')
+                    input.delete(type='image', src='img/delete.png', alt='Submit')
+            if(!user.isValid)
+              tr.danger
+                td= user.name
+                td= user.email
+                td= user.affiliation
+                td= user.dsn
+                td
+                  form(method='POST', action='/users/#{user._id}/delete')
+                    input.delete(type='image', src='img/delete.png', alt='Submit')
+    .col-md-4.column
+      #panel-612127.panel-group
+        .panel.panel-default
+          .panel-heading
+            a.panel-title(data-toggle='collapse', data-parent='#panel-612127', href='#panel-element-402369') Add Member
+          #panel-element-402369.panel-collapse.collapse.in
+            .panel-body
+              form(method='post', action='/registeru')
+                .form-group
+                  label New Member Email Address
+                  input.form-control(type='email', name='email', autofocus=true, placeholder='Email Address', required='required')
+                button.btn.btn-default Register New Member
+    .col-md-4.column
+    .col-md-4.column

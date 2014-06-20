@@ -87,7 +87,16 @@ exports.bounce = (req, res, next)=>{
 };
 
 exports.portal = (req, res)=>{
-  res.render('org/portal', {title: 'Target-Deck: Organization Portal'});
+  Org.findById(req.session.userId, org=>{
+    Obj.findByOrgId(org._id, objs=>{
+      Op.findByOrgId(org._id, ops=>{
+        User.findByOrgId(org._id, users=>{
+          console.log(objs);
+          res.render('org/portal', {org:org, objs:objs, ops:ops, users:users, title: 'Target-Deck: Organization Portal'});
+        });
+      });
+    });
+  });
 };
 
 exports.manage = (req, res)=>{

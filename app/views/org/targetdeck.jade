@@ -29,29 +29,64 @@ block content
               if(user)
                 li
                   a(href='/logout') Logout
-  h1= title
-  table
-    thead
-      tr
-        th
-          | Objective Photo
-        th
-          | Priority
-        th
-          | Operation
-        th
-          | Objective Name
-        th
-          | Status
-    tbody
-      each obj in objs
-        - var opIndex = _.findIndex(ops,{'_id': obj.opId})
-        tr
-          td
-            a(href='/obj/#{obj._id}')
-              each pic in obj.profilePic
-                .photo(style="background-image:url('#{pic.file}')")
-          td= obj.priority
-          td= ops[opIndex].name
-          td= obj.objname
-          td= obj.status
+    .col-md-12.column#buffer
+      .page-header
+        h1
+          small Objectives
+    .col-md-12.column
+      table.table.table-hover.table-bordered
+        thead
+          tr
+            th
+              | Objective Photo
+            th
+              | Priority
+            th
+              | Operation
+            th
+              | Objective Name
+            th
+              | Status
+        tbody
+          each obj in objs
+            - var opIndex = _.findIndex(ops,{'_id': obj.opId})
+            if(obj.status === 'AT LARGE')
+              tr.success
+                td
+                  a(href='/obj/#{obj._id}')
+                    each pic in obj.profilePic
+                      .photo(style="background-image:url('#{pic.file}')")
+                td= obj.priority
+                td= ops[opIndex].name
+                td= obj.objname
+                td= obj.status
+            if(obj.status === 'EKIA')
+              tr.danger
+                td
+                  a(href='/obj/#{obj._id}')
+                    each pic in obj.profilePic
+                      .photo(style="background-image:url('#{pic.file}')")
+                td= obj.priority
+                td= ops[opIndex].name
+                td= obj.objname
+                td= obj.status
+            if(obj.status === 'DETAINED')
+              tr.warning
+                td
+                  a(href='/obj/#{obj._id}')
+                    each pic in obj.profilePic
+                      .photo(style="background-image:url('#{pic.file}')")
+                td= obj.priority
+                td= ops[opIndex].name
+                td= obj.objname
+                td= obj.status
+            if(obj.status === 'UNKNOWN')
+              tr.active
+                td
+                  a(href='/obj/#{obj._id}')
+                    each pic in obj.profilePic
+                      .photo(style="background-image:url('#{pic.file}')")
+                td= obj.priority
+                td= ops[opIndex].name
+                td= obj.objname
+                td= obj.status

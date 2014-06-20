@@ -29,52 +29,54 @@ block content
               if(user)
                 li
                   a(href='/logout') Logout
-    .row.clearfix#buffer
-      .col-md-12.column
-        table.table
-          thead
+    .col-md-12.column#buffer
+      .page-header
+        h1
+          small Members
+    .col-md-12.column
+      table.table.table-hover
+        thead
+          tr
+            th
+              | Operation Name
+            th
+              | Expiry
+            th
+              | Unit
+            th
+              | POC
+            th
+              | Remove
+        tbody
+          each op in ops
+            - var userIndex = _.findIndex(users,{'_id': op.poc})
             tr
-              th
-                | Operation Name
-              th
-                | Expiry
-              th
-                | Unit
-              th
-                | POC
-              th
-                | Remove
-          tbody
-            each op in ops
-              - var userIndex = _.findIndex(users,{'_id': op.poc})
-              tr
-                td= op.name
-                td= op.date
-                td #{org.name}
-                td= users[userIndex].name
-                td
-                  form(method='POST', action='/ops/#{op._id}/delete')
-                    input.delete(type='image', src='img/delete.png', alt='Submit')
-    .row.clearfix
-      .col-md-4.column
-        #panel-612127.panel-group
-          .panel.panel-default
-            .panel-heading
-              a.panel-title(data-toggle='collapse', data-parent='#panel-612127', href='#panel-element-402369') Add Operation
-            #panel-element-402369.panel-collapse.collapse.in
-              .panel-body
-                form(method='post', action='/operation/new', enctype='multipart/form-data')
-                  .form-group
-                    label Operation Name
-                    input.form-control(type='text', name='name', autofocus=true, placeholder='Enter Operation Name')
-                  .form-group
-                    label Expiry
-                    input.form-control(type='date', name='date')
-                  .form-group
-                    label POC
-                    select.form-control(type='select', name='poc')
-                      option Select POC
-                        each user in users
-                          option(value='#{user._id}')= user.name
-                  button.btn.btn-default Create Operation
-      .col-md-4.column
+              td= op.name
+              td= op.date
+              td #{org.name}
+              td= users[userIndex].name
+              td
+                form(method='POST', action='/ops/#{op._id}/delete')
+                  input.delete(type='image', src='img/delete.png', alt='Submit')
+    .col-md-4.column
+      #panel-612127.panel-group
+        .panel.panel-default
+          .panel-heading
+            a.panel-title(data-toggle='collapse', data-parent='#panel-612127', href='#panel-element-402369') Add Operation
+          #panel-element-402369.panel-collapse.collapse.in
+            .panel-body
+              form(method='post', action='/operation/new', enctype='multipart/form-data')
+                .form-group
+                  label Operation Name
+                  input.form-control(type='text', name='name', autofocus=true, placeholder='Enter Operation Name')
+                .form-group
+                  label Expiry
+                  input.form-control(type='date', name='date')
+                .form-group
+                  label POC
+                  select.form-control.selectpicker(type='select', name='poc')
+                    option Select POC
+                      each user in users
+                        option(value='#{user._id}')= user.name
+                button.btn.btn-default Create Operation
+    .col-md-4.column
