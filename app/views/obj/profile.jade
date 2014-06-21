@@ -64,17 +64,13 @@ block content
         .col-md-12.column
           #carousel-916520.carousel.slide
             ol.carousel-indicators
-              li.active(data-slide-to='0', data-target='#carousel-916520')
-              li(data-slide-to='1', data-target='#carousel-916520')
-              li(data-slide-to='2', data-target='#carousel-916520')
             .carousel-inner
+              .item.active
+                img(src='#{org.primaryPhoto}')
               each photo in obj.imagery
-                .item.active
+                .item
                   img(alt='', src='#{photo.file}')
               a.left.carousel-control(href='#carousel-916520', data-slide='prev')
                 span.glyphicon.glyphicon-chevron-left
               a.right.carousel-control(href='#carousel-916520', data-slide='next')
                 span.glyphicon.glyphicon-chevron-right
-
-    //- each photo in obj.imagery
-    //-   .imagery(style='background-image:url("#{photo.file}")')
