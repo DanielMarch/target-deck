@@ -1,36 +1,99 @@
 extends ../shared/template
 
 block content
-  h1= title
-  form(method='post', action='/obj/#{obj._id}/edit', enctype='multipart/form-data')
-    label Objective Name:
-    input(type='text', name='obj', autofocus=true, placeholder='Enter Objective Name', required='required', value=obj.objname)
-    label Name If Known:
-    input(type='text', name='name', autofocus=true, placeholder='Enter Name, If Known', value=obj.name)
-    label Priority:
-    select(type='select', name='priority')
-      option Select Priority
-      option 1
-      option 2
-      option 3
-      option 4
-      option 5
-    label Operation
-    select(type='select', name='operation')
-      option Select Operation
-        each op in ops
-          option(value='#{op._id}')= op.name
-    label Status:
-    select(type='select', name='status')
-      option Select Obj Status
-      option EKIA
-      option DETAINED
-      option AT LARGE
-      option UNKNOWN
-    label Profile Picture:
-    input(type='file', name='profile')
-    label Imagery:
-    input(type='file', name='imagery', multiple=true)
-    label Reports:
-    input(type='file', accept='.txt', name='reports', multiple=true)
-    button Create Objective
+  //- h1= title
+  //- form(method='post', action='/obj/#{obj._id}/edit', enctype='multipart/form-data')
+  //-   label Objective Name:
+  //-   input(type='text', name='obj', autofocus=true, placeholder='Enter Objective Name', required='required', value=obj.objname)
+  //-   label Name If Known:
+  //-   input(type='text', name='name', autofocus=true, placeholder='Enter Name, If Known', value=obj.name)
+  //-   label Priority:
+  //-   select(type='select', name='priority')
+  //-     option Select Priority
+  //-     option 1
+  //-     option 2
+  //-     option 3
+  //-     option 4
+  //-     option 5
+  //-   label Operation
+  //-   select(type='select', name='operation')
+  //-     option Select Operation
+  //-       each op in ops
+  //-         option(value='#{op._id}')= op.name
+  //-   label Status:
+  //-   select(type='select', name='status')
+  //-     option Select Obj Status
+  //-     option EKIA
+  //-     option DETAINED
+  //-     option AT LARGE
+  //-     option UNKNOWN
+  //-   label Profile Picture:
+  //-   input(type='file', name='profile')
+  //-   label Imagery:
+  //-   input(type='file', name='imagery', multiple=true)
+  //-   label Reports:
+  //-   input(type='file', accept='.txt', name='reports', multiple=true)
+  //-   button Create Objective
+  .container
+    .row.clearfix
+      .col-md-12.column
+        nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse(role='navigation')
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand(href='/userportal') Target Deck
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            ul.nav.navbar-nav.navbar-right
+              li
+                a(href='/obj/new') New Objective
+              li
+                a(href='/logout') Logout
+      .col-md-12.column#buffer
+        .page-header
+          h1
+            small Edit Objective
+      .col-md-4.column
+      .col-md-4.column
+        form(method='post', action='/obj/#{obj._id}/edit', enctype='multipart/form-data')
+          .form-group
+            label Objective Name
+            input.form-control(type='text', name='obj', autofocus=true, placeholder='Enter Objective Name', required='required', value=obj.objname)
+          .form-group
+            label Name If Known
+            input.form-control(type='text', name='name', autofocus=true, placeholder='Enter Name, If Known', value=obj.name)
+          .form-group
+            label Priority
+            select.form-control(type='select', name='priority')
+              option Select Priority
+              option 1
+              option 2
+              option 3
+              option 4
+              option 5
+          .form-group
+            label Operation
+            select.form-control(type='select', name='operation')
+              option Select Operation
+                each op in ops
+                  option(value='#{op._id}')= op.name
+          .form-group
+            label Status
+            select.form-control(type='select', name='status')
+              option UNKNOWN
+              option EKIA
+              option DETAINED
+              option AT LARGE
+          .form-group
+            label Profile Picture
+            input.form-control(type='file', name='profile')
+          .form-group
+            label Imagery
+            input.form-control(type='file', name='imagery', multiple=true)
+          .form-group
+            label Reports
+            input.form-control(type='file', accept='.txt', name='reports', multiple=true)
+          button.btn.btn-default Edit Objective
+      .col-md-4.column

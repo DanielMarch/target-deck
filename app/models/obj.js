@@ -7,7 +7,7 @@ var _ = require('lodash');
 
 class Obj{
   static create(fields, files, orgId, fn){
-    objCollection.findOne({obj:fields.obj[0].toUpperCase()}, (e,o)=>{
+    objCollection.findOne({objname:fields.obj[0].toUpperCase()}, (e,o)=>{
       if(o){
         fn(null);
       }else{
@@ -23,8 +23,12 @@ class Obj{
         obj.processImagery(files.imagery);
         obj.reports = [];
         obj.processReports(files.reports);
-        obj.profilePic = [];
-        obj.processProfilePic(files.profile);
+        if(files.profile.size){
+          obj.profilePic = [];
+          obj.processProfilePic(files.profile);
+        }else{
+          obj.profilePic = [{'name' : 'default.gif', 'file' : '/img/default.gif'}];
+        }
         objCollection.save(obj, ()=>fn(obj));
       }
     });

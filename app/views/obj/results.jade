@@ -1,30 +1,85 @@
 extends ../shared/template
 
 block content
-  h1= title
-
-  table
-    thead
-      tr
-        th
-          | Objective Photo
-        th
-          | Priority
-        th
-          | Operation
-        th
-          | Objective Name
-        th
-          | Status
-    tbody
-      each obj in objs
-        - var opIndex = _.findIndex(ops,{'_id': obj.opId})
-        tr
-          td
-            a(href='/obj/#{obj._id}')
-              each pic in obj.profilePic
-                .photo(style="background-image:url('#{pic.file}')")
-          td= obj.priority
-          td= ops[opIndex].name
-          td= obj.objname
-          td= obj.status
+  .container
+    .row.clearfix
+      .col-md-12.column
+        nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse(role='navigation')
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand(href='/userportal') Target Deck
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            form.navbar-form.navbar-left(method='GET',action='/obj/search')
+              .form-group
+                input.form-control(type=text, name='search', autofocus=true, placeholder='Search By Objective')
+              button.btn.btn-default(type='submit') Submit
+            ul.nav.navbar-nav.navbar-right
+              li
+                a(href='/obj/new') New Objective
+              li
+                a(href='/logout') Logout
+      .col-md-12.column#buffer
+        .page-header
+          h1
+            small Objectives
+      .col-md-12.column
+        table.table.table-hover.table-bordered
+          thead
+            tr
+              th
+                | Objective Photo
+              th
+                | Priority
+              th
+                | Operation
+              th
+                | Objective Name
+              th
+                | Status
+          tbody
+            each obj in objs
+              - var opIndex = _.findIndex(ops,{'_id': obj.opId})
+              if(obj.status === 'AT LARGE')
+                tr.success
+                  td
+                    a(href='/obj/#{obj._id}')
+                      each pic in obj.profilePic
+                        .photo(style="background-image:url('#{pic.file}')")
+                  td= obj.priority
+                  td= ops[opIndex].name
+                  td= obj.objname
+                  td= obj.status
+              if(obj.status === 'EKIA')
+                tr.danger
+                  td
+                    a(href='/obj/#{obj._id}')
+                      each pic in obj.profilePic
+                        .photo(style="background-image:url('#{pic.file}')")
+                  td= obj.priority
+                  td= ops[opIndex].name
+                  td= obj.objname
+                  td= obj.status
+              if(obj.status === 'DETAINED')
+                tr.warning
+                  td
+                    a(href='/obj/#{obj._id}')
+                      each pic in obj.profilePic
+                        .photo(style="background-image:url('#{pic.file}')")
+                  td= obj.priority
+                  td= ops[opIndex].name
+                  td= obj.objname
+                  td= obj.status
+              if(obj.status === 'UNKNOWN')
+                tr.active
+                  td
+                    a(href='/obj/#{obj._id}')
+                      each pic in obj.profilePic
+                        .photo(style="background-image:url('#{pic.file}')")
+                  td= obj.priority
+                  td= ops[opIndex].name
+                  td= obj.objname
+                  td= obj.status

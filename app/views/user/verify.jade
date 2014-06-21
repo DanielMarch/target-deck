@@ -1,20 +1,85 @@
 extends ../shared/template
 
 block content
-  h1= title
+  .container
+    .row.clearfix
+      .col-md-12.column
+        nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse(role='navigation')
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand(href='/') Target Deck
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            ul.nav.navbar-nav
+              li
+                a(href='/about') About
+            ul.nav.navbar-nav.navbar-right
+              if(!user)
+                li
+                  a(href='/dash') Login
+              if(user)
+                li
+                  a(href='/logout') Logout
+      .row.clearfix#buffer
+        .col-md-4.column
+        .col-md-4.column
+          .page-header
+            h1
+              small Input User Information
+          form(method='post', action='/verifyu/' + u._id, enctype='multipart/form-data')
+            .form-group
+              label Password
+              input.form-control(type='password', name='password', autofocus=true, placeholder='Enter Password', required='required')
+            .form-group
+              label Name
+              input.form-control(type='text', name='name', autofocus=true, placeholder='Enter Name', required='required')
+            .form-group
+              label DSN
+              input.form-control(type='text', name='dsn', autofocus=true, placeholder='Enter DSN Number', required='required')
+            .form-group
+              label Affiliation
+              .radio
+                label
+                  input(type='radio', name='affiliation', value='MIL')
+                  | MIL
+              .radio
+                label
+                  input(type='radio', name='affiliation', value='CON')
+                  | CON
+              .radio
+                label
+                  input(type='radio', name='affiliation', value='CIV')
+                  | CIV
+            button Finalize User Profile
+        .col-md-4.column
 
-  form(method='post', action='/verifyu/' + u._id, enctype='multipart/form-data')
-    label Password:
-    input(type='password', name='password', autofocus=true, placeholder='Enter Password', required='required')
-    label Name:
-    input(type='text', name='name', autofocus=true, placeholder='Enter Name', required='required')
-    label Affiliation:
-    input(type='radio', name='affiliation', value='MIL')
-    | MIL
-    input(type='radio', name='affiliation', value='CON')
-    | CON
-    input(type='radio', name='affiliation', value='CIV')
-    | CIV
-    label DSN:
-    input(type='text', name='dsn', autofocus=true, placeholder='Enter DSN', required='required')
-    button Finalize User Profile
+        //- .radio
+        //-   label
+        //-       input#optionsRadios1(type='radio', name='optionsRadios', value='option1', checked='checked')
+        //-       | Option one is this and that—be sure to include why it's great
+        //- .radio
+        //-   label
+        //-     input#optionsRadios2(type='radio', name='optionsRadios', value='option2')
+        //-     | Option two can be something else and selecting it will deselect option one
+  //-
+  //-
+  //- h1= title
+  //-
+  //- form(method='post', action='/verifyu/' + u._id, enctype='multipart/form-data')
+  //-   label Password:
+  //-   input(type='password', name='password', autofocus=true, placeholder='Enter Password', required='required')
+  //-   label Name:
+  //-   input(type='text', name='name', autofocus=true, placeholder='Enter Name', required='required')
+  //-   label Affiliation:
+  //-   input(type='radio', name='affiliation', value='MIL')
+  //-   | MIL
+  //-   input(type='radio', name='affiliation', value='CON')
+  //-   | CON
+  //-   input(type='radio', name='affiliation', value='CIV')
+  //-   | CIV
+  //-   label DSN:
+  //-   input(type='text', name='dsn', autofocus=true, placeholder='Enter DSN', required='required')
+  //-   button Finalize User Profile

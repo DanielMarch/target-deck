@@ -12,7 +12,6 @@ exports.new = (req, res)=>{
   User.findById(req.session.userId, user=>{
     Op.findByOrgId(user.org, ops=>{
       Obj.findByOrgId(user.org, objs=>{
-        console.log(objs);
         res.render('obj/new', {ops:ops, objs:objs, title: 'Target-Deck: New Objective'});
       });
     });
@@ -23,7 +22,6 @@ exports.create = (req, res)=>{
   User.findById(req.session.userId, user=>{
     var form = new multiparty.Form();
     form.parse(req, (err, fields, files)=>{
-      console.log(files);
       Obj.create(fields, files, user.org, obj=>{
         console.log(obj);
         res.redirect('/userportal');
