@@ -23,11 +23,11 @@ class Obj{
         obj.processImagery(files.imagery);
         obj.reports = [];
         obj.processReports(files.reports);
-        if(files.profile.size){
+        if(files.profile[0].size === 0){
+          obj.profilePic = [{'name' : 'default.gif', 'file' : '/img/default.gif'}];
+        }else{
           obj.profilePic = [];
           obj.processProfilePic(files.profile);
-        }else{
-          obj.profilePic = [{'name' : 'default.gif', 'file' : '/img/default.gif'}];
         }
         objCollection.save(obj, ()=>fn(obj));
       }

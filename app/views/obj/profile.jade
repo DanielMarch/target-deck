@@ -1,24 +1,80 @@
 extends ../shared/template
 
 block content
-  h1= title
+  .container
+    .row.clearfix
+        .col-md-12.column
+          nav.navbar.navbar-default.navbar-inverse.navbar-fixed-top(role='navigation')
+            .navbar-header
+              button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+              a.navbar-brand Target Deck
+            #bs-example-navbar-collapse-1.collapse.navbar-collapse
+              ul.nav.navbar-nav.navbar-right
+                li
+                  a(href='javascript:history.go(-1)') Go Back
+                li
+                  a(href='/logout') Logout
+      .row.clearfix
+        .col-md-12.column#buffer
+          .page-header
+            h1
+              small #{obj.objname}
+      .row.clearfix
+        .col-md-4.column
+          .profile-picture(style="background-image:url('#{obj.profilePic[0].file}')")
+        .col-md-4.column
+          dl
+            dt
+              | Priority
+            dd
+              | #{obj.priority}
+            dt
+              | Operation
+            dd
+              | #{op.name}
+            dt
+              | Unit
+            dd
+              | #{org.name}
+            dt
+              | POC
+            dd
+              | #{org.poc}
+            dt
+              | POC Email
+            dd
+              | #{org.email}
+            dt
+              | POC DSN
+            dd
+              | #{org.dsn}
+        .col-md-4.column
+          each report in obj.reports
+            a.btn(href='#{report.file}', target='_blank')= report.name
+      .row.clearfix
+        .col-md-12.column
+          .page-header
+            h1
+              small Imagery
+      .row.clearfix
+        .col-md-12.column
+          #carousel-916520.carousel.slide
+            ol.carousel-indicators
+              li.active(data-slide-to='0', data-target='#carousel-916520')
+              li(data-slide-to='1', data-target='#carousel-916520')
+              li(data-slide-to='2', data-target='#carousel-916520')
+            .carousel-inner
+              each photo in obj.imagery
+                .item.active
+                  img(alt='', src='#{photo.file}')
+              a.left.carousel-control(href='#carousel-916520', data-slide='prev')
+                span.glyphicon.glyphicon-chevron-left
+              a.right.carousel-control(href='#carousel-916520', data-slide='next')
+                span.glyphicon.glyphicon-chevron-right
 
-  .profile-picture(style="background-image:url('#{obj.profilePic[0].file}')")
-
-  p Priority: #{obj.priority}
-
-  p Operation: #{op.name}
-
-  p Unit: #{org.name}
-
-  p POC: #{org.poc}
-
-  p POC Email: #{org.email}
-
-  p POC DSN: #{org.dsn}
-
-  each photo in obj.imagery
-    .imagery(style='background-image:url("#{photo.file}")')
-
-  each report in obj.reports
-    a(href='#{report.file}', target='_blank')= report.name
+    //- each photo in obj.imagery
+    //-   .imagery(style='background-image:url("#{photo.file}")')

@@ -22,6 +22,9 @@ exports.create = (req, res)=>{
   User.findById(req.session.userId, user=>{
     var form = new multiparty.Form();
     form.parse(req, (err, fields, files)=>{
+      console.log('#########################');
+      console.log(files.profile[0].size);
+      console.log('#########################');
       Obj.create(fields, files, user.org, obj=>{
         console.log(obj);
         res.redirect('/userportal');
