@@ -61,16 +61,7 @@ block content
             h1
               small Imagery
       .row.clearfix
-        .col-md-12.column
-          #carousel-916520.carousel.slide
-            ol.carousel-indicators
-            .carousel-inner
-              .item.active
-                img(src='#{org.primaryPhoto}')
-              each photo in obj.imagery
-                .item
-                  img(alt='', src='#{photo.file}')
-              a.left.carousel-control(href='#carousel-916520', data-slide='prev')
-                span.glyphicon.glyphicon-chevron-left
-              a.right.carousel-control(href='#carousel-916520', data-slide='next')
-                span.glyphicon.glyphicon-chevron-right
+        each photo in obj.imagery
+          .col-md-3.column.project
+            a(href="#{photo.file}", data-lightbox='image-1')
+              img.imagery(src="#{photo.file}")
