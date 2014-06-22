@@ -76,8 +76,12 @@ class Obj{
     this.processImagery(files.imagery);
     this.reports = [];
     this.processReports(files.reports);
-    this.profilePic = [];
-    this.processProfilePic(files.profile);
+    if(files.profile[0].size === 0){
+      this.profilePic = [{'name' : 'default.gif', 'file' : '/img/default.gif'}];
+    }else{
+      this.profilePic = [];
+      this.processProfilePic(files.profile);
+    }
   }
 
   save(fn) {

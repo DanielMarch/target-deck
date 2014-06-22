@@ -32,7 +32,7 @@ block content
     .col-md-12.column#buffer
       .page-header
         h1
-          small Members
+          small Operations
     .col-md-12.column
       table.table.table-hover
         thead
@@ -52,7 +52,7 @@ block content
             - var userIndex = _.findIndex(users,{'_id': op.poc})
             tr
               td= op.name
-              td= op.date
+              td= op.date.toDateString()
               td #{org.name}
               td= users[userIndex].name
               td
