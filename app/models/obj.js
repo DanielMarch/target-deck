@@ -55,6 +55,15 @@ class Obj{
     });
   }
 
+  static findByOpId(opId, fn){
+    if(typeof opId === 'string'){
+      opId = Mongo.ObjectID(opId);
+    }
+    objCollection.find({opId: opId}).toArray((e, objs)=>{
+      fn(objs);
+    });
+  }
+
   static search(params, fn){
     var objname = new RegExp(params.toUpperCase().toString());
     objCollection.find({objname:{$in:[objname]}}).toArray((e, objs)=>{

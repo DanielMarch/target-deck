@@ -34,7 +34,6 @@ block content
           .form-group
             label Priority
             select.form-control(type='select', name='priority')
-              option Select Priority
               option 1
               option 2
               option 3
@@ -43,9 +42,8 @@ block content
           .form-group
             label Operation
             select.form-control(type='select', name='operation')
-              option Select Operation
-                each op in ops
-                  option(value='#{op._id}')= op.name
+              each op in ops
+                option(value='#{op._id}')= op.name
           .form-group
             label Status
             select.form-control(type='select', name='status')

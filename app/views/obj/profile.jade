@@ -47,14 +47,14 @@ block content
             dt
               | POC Email
             dd
-              | #{org.email}
+              a(href='mailto:#{org.email}')= org.email
             dt
               | POC DSN
             dd
               | #{org.dsn}
         .col-md-4.column
           each report in obj.reports
-            a.btn(href='#{report.file}', target='_blank')= report.name
+            a.btn.btn-primary.reports(href='#{report.file}', target='_blank')= report.name
       .row.clearfix
         .col-md-12.column
           .page-header
