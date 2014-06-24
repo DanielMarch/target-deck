@@ -94,7 +94,7 @@ function sendVerificationEmail(org, fn){
   form.append('from', 'admin@targetdeck.com');
   form.append('to', org.email);
   form.append('subject', 'Please verify your email address and create your organization on Target Deck');
-  form.append('html', `<a href="http://localhost:4000/verify/${org._id}">Click to Verify</a>`);
+  form.append('html', `<a href="http://target-deck.sethmarch.io/verify/${org._id}">Click to Verify</a>`);
 }
 
 module.exports = Org;
