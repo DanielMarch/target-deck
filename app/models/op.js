@@ -18,6 +18,12 @@ class Op{
     });
   }
 
+  static findByPoc(poc, fn){
+    opCollection.find({poc: poc}).toArray((e,op)=>{
+      fn(op);
+    });
+  }
+
   static findByOrgId(orgId, fn){
     opCollection.find({org: orgId}).toArray((e, ops)=>{
       fn(ops);

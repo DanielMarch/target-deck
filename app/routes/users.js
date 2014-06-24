@@ -60,10 +60,14 @@ exports.portal = (req, res)=>{
 
 exports.delete = (req, res)=>{
   User.findById(req.params.id, user=>{
-    if(req.session.userId.toString() === user.org.toString()){
-      user.destroy(()=>res.redirect('/manage'));
-    }else{
-      res.redirect('/dash');
-    }
+    console.log(user);
+    Op.findByPoc(user._id, op=>{
+      console.log(op.length);
+      if(op.length === 0 && req.session.userId.toString() === user.org.toString()){
+        user.destroy(()=>res.redirect('/manage'));
+      }else{
+        res.redirect('/manage');
+      }
+    });
   });
 };
