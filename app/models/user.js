@@ -89,7 +89,7 @@ function sendVerificationEmail(user, fn){
   form.append('from', 'admin@targetdeck.com');
   form.append('to', user.email);
   form.append('subject', 'Please verify your account on Target-Deck');
-  form.append('html', `<a href="http://target-deck.sethmarch.io/verifyu/${user._id}">Click to Verify</a>`);
+  form.append('html', `<a href="http://localhost:4000/verifyu/${user._id}">Click to Verify</a>`);
 }
 
 module.exports = User;
